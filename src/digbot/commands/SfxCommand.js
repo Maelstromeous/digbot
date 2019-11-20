@@ -29,7 +29,7 @@ module.exports = class SfxCommand extends Command {
     }
 
     async execute({ message: msg }) {
-        if (!config.get('features.sfxCommand')) {
+        if (!config.get('features.sfx')) {
             sendMessageToChannel(msg.channel, 'Sorry this feature has been disabled');
             return false;
         }
@@ -81,7 +81,7 @@ module.exports = class SfxCommand extends Command {
 
     // Called on ready and then every 24 hours, verifies all sfxCommand on file are good links
     static ready() {
-        if (!config.get('features.sfxCommand')) { return; }
+        if (!config.get('features.sfx')) { return; }
         for (const x in sfxCommand) {
             if (sfxCommand[x].source === 'youtube') {
                 verify(sfxCommand[x].link, x);

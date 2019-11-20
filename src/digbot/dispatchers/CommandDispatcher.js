@@ -26,6 +26,7 @@ module.exports = class CommandDispatcher extends Dispatcher {
      * @return {Promise<void>}
      */
     async start() {
+        console.log('Start CommandDispatcher');
         this.registerListenersTo(this.client, {
             message: this.handler.bind(this),
         });

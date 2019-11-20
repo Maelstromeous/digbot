@@ -52,13 +52,12 @@ module.exports = class QueueProvider extends ServiceProvider {
      *
      * @return {Promise<void>}
      */
-    async boot({ commandRegister }) {
+    async boot({ 'digbot.commands.foundation.CommandRegister': register }) {
         for (const command of this.commands) {
-            if (isString(command)) {
-                commandRegister.add(this.container.resolve(command));
-            } else {
-                commandRegister.add(this.container.build(command));
-            }
+            register.add(
+                isString(command)
+                    ? this.container.resolve(command)
+                    : this.container.build(command));
         }
 
         play.ready();

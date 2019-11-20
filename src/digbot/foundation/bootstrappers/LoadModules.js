@@ -1,10 +1,6 @@
 const { join, relative } = require('path');
 
 module.exports = class LoadModules {
-    constructor() {
-        this.root = 'src/digbot';
-    }
-
     /**
      * Load all modules into the container
      *
@@ -12,7 +8,7 @@ module.exports = class LoadModules {
      */
     bootstrap({ app }) {
         app.loadModules(
-            [`${this.root}/**.js`],
+            ['src/**/*.js'],
             {
                 formatName: this.format.bind(this),
             },
@@ -25,8 +21,7 @@ module.exports = class LoadModules {
      * @return {String}
      */
     format(name, { path }) {
-        const splat = relative(join(process.cwd(), this.root), path)
-            .split('/');
+        const splat = relative(join(process.cwd(), 'src'), path).split('/');
 
         splat.pop();
 

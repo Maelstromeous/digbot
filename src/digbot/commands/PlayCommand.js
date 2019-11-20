@@ -42,7 +42,7 @@ module.exports = class PlayCommand extends Command {
 
     async execute({ message: msg }) { // eslint-disable-line consistent-return
         failing = false;
-        if (!config.get('features.playCommand')) {
+        if (!config.get('features.play')) {
             sendMessageToChannel(msg.channel, 'Sorry this feature has been disabled');
             return false;
         }
@@ -218,7 +218,7 @@ module.exports = class PlayCommand extends Command {
 
     // Passess an explanation of the command
     static passList() {
-        if (!config.get('features.playCommand')) { return false; }
+        if (!config.get('features.play')) { return false; }
 
         let message = '__**Play Command:**__'
             + '\nAll commands are of the form !playCommand command specification'
@@ -252,7 +252,7 @@ module.exports = class PlayCommand extends Command {
 
     // Called on bot start then every 24 hours
     static ready() {
-        if (!config.get('features.playCommand')) { return; }
+        if (!config.get('features.play')) { return; }
         verified.external = {}; // Wipe cached external verified commands
         verifyLocal();
     }

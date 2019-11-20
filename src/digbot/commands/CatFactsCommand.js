@@ -1,7 +1,7 @@
 const Command = require('./foundation/Command');
 
 const antiduplicate = require('../util/antiduplicate.js');
-const catFactCommand = require('../../assets/catfacts.js');
+const catFactsCommand = require('../../assets/catfacts.js');
 
 module.exports = class CatfactsCommand extends Command {
     constructor() {
@@ -17,7 +17,7 @@ module.exports = class CatfactsCommand extends Command {
     async execute(request) {
         return request.respond(antiduplicate.randomise(
             'catfacts',
-            catFactCommand,
+            catFactsCommand,
         ));
     }
 

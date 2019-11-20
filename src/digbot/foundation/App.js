@@ -79,7 +79,7 @@ module.exports = class App extends EventEmitter {
     async registerConfiguredProviders(providers) {
         for (const provider of providers) {
             // eslint-disable-next-line no-await-in-loop
-            await this.registerProvider(this.resolve(provider));
+            await this.registerProvider(provider);
         }
     }
 
