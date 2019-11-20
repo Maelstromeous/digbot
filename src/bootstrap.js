@@ -1,6 +1,6 @@
 const { asClass } = require('awilix');
-const App = require('./lib/foundation/app');
-const Kernel = require('./lib/foundation/kernel');
+const App = require('./digbot/foundation/App');
+const Kernel = require('./digbot/foundation/Kernel');
 
 const app = new App();
 

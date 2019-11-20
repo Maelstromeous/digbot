@@ -1,6 +1,6 @@
 //  Copyright © 2018 DIG Development team. All rights reserved.
 
-/* Asset module for play.js, stores youtube links, if you add a playlist try to include 50+ items to
+/* Asset module for PlayCommand.js, stores youtube links, if you add a playlist try to include 50+ items to
 mitigate repitition, remember newer videos/songs tend to be louder cos of loudness war */
 
 /* If you want to add to playlists configure the volume via a test playlist with only one index

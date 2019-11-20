@@ -1,12 +1,12 @@
 const { expect } = require('chai');
 const { join } = require('path');
 
-const { readdirfilesSync } = require('../src/lib/util/fs');
+const { readdirfilesSync } = require('../src/digbot/util/fs');
 
-const BaseCommand = require('../src/lib/commands/foundation/command');
+const BaseCommand = require('../src/digbot/commands/foundation/Command');
 
 const AsyncFunction = (async () => {}).constructor;
-const COMMANDS_DIR = join(process.cwd(), 'src/lib/commands');
+const COMMANDS_DIR = join(process.cwd(), 'src/digbot/commands');
 
 describe('Commands', () => {
     for (const cf of readdirfilesSync(COMMANDS_DIR)) {
