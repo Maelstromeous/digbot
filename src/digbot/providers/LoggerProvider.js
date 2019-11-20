@@ -37,7 +37,7 @@ module.exports = class LoggerProvider extends ServiceProvider {
             }));
 
         this.container.register('loggerDiscordTransportFactory',
-            asFunction(({ discordClient, queuesDiscordmessagequeue }) => (channelID, level) => {
+            asFunction(({ 'digbot.queues.DiscordMessageQueue': queue }) => (channelID, level) => {
                 const opts = {
                     format: format.combine(
                         ...this.container.resolve('loggerDefaultFormat'),
@@ -51,8 +51,7 @@ module.exports = class LoggerProvider extends ServiceProvider {
                 }
 
                 return new DiscordTransport({
-                    discordClient,
-                    queuesDiscordmessagequeue,
+                    'digbot.queues.DiscordMessageQueue': queue,
                     opts,
                 });
             }));
