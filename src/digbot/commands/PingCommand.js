@@ -2,14 +2,14 @@ const Command = require('./foundation/Command');
 const { pingStatus } = require('../util/ping');
 
 module.exports = class PingCommand extends Command {
-    constructor({ discordjsClient }) {
+    constructor({ discordClient }) {
         super();
 
         this.name = 'ping';
 
         this.special = true;
 
-        this.client = discordjsClient;
+        this.client = discordClient;
     }
 
     /**

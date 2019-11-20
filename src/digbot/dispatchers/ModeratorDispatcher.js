@@ -11,13 +11,13 @@ const welcome = require('../welcomepack/welcomepack');
 
 module.exports = class ModeratorDispatcher extends Dispatcher {
     /**
-     * @param discordjsClient
+     * @param discordClient
      * @param logger
      */
-    constructor({ discordjsClient, logger }) {
+    constructor({ discordClient, logger }) {
         super();
 
-        this.client = discordjsClient;
+        this.client = discordClient;
         this.logger = logger;
     }
 

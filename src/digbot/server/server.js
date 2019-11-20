@@ -7,7 +7,7 @@ const { Collection } = require('discord.js');
 const config = require('config');
 
 // TODO: Workaround, client should be injected. Only here for legacy support.
-const client = () => require('../../bootstrap').resolve('discordjsClient'); // eslint-disable-line global-require
+const client = () => require('../../bootstrap').resolve('discordClient'); // eslint-disable-line global-require
 
 module.exports = {
     getReady() {

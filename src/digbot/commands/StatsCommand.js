@@ -5,10 +5,10 @@ const { pingStatus } = require('../util/ping');
 const { version } = require('../../../package');
 
 module.exports = class StatsCommand extends Command {
-    constructor({ discordjsClient }) {
+    constructor({ discordClient }) {
         super();
 
-        this.client = discordjsClient;
+        this.client = discordClient;
 
         this.name = 'stats';
         this.special = true;

@@ -5,13 +5,13 @@ const Dispatcher = require('../foundation/Dispatcher');
 
 module.exports = class RoleDispatcher extends Dispatcher {
     /**
-     * @param discordjsClient
+     * @param discordClient
      * @param logger
      */
-    constructor({ discordjsClient }) {
+    constructor({ discordClient }) {
         super();
 
-        this.client = discordjsClient;
+        this.client = discordClient;
     }
 
     /**

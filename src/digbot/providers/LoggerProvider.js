@@ -37,7 +37,7 @@ module.exports = class LoggerProvider extends ServiceProvider {
             }));
 
         this.container.register('loggerDiscordTransportFactory',
-            asFunction(({ discordjsClient, queuesDiscordmessagequeue }) => (channelID, level) => {
+            asFunction(({ discordClient, queuesDiscordmessagequeue }) => (channelID, level) => {
                 const opts = {
                     format: format.combine(
                         ...this.container.resolve('loggerDefaultFormat'),
@@ -51,7 +51,7 @@ module.exports = class LoggerProvider extends ServiceProvider {
                 }
 
                 return new DiscordTransport({
-                    discordjsClient,
+                    discordClient,
                     queuesDiscordmessagequeue,
                     opts,
                 });

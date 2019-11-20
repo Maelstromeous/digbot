@@ -5,17 +5,17 @@ const Request = require('../commands/foundation/Request');
 
 module.exports = class CommandDispatcher extends Dispatcher {
     /**
-     * @param discordjsClient
+     * @param discordClient
      * @param register
      * @param logger
      * @param rateLimiter
      */
-    constructor({ discordjsClient, logger, 'digbot.commands.foundation.CommandRegister': register, 'digbot.util.RateLimiter': rateLimiter }) {// eslint-disable-line
+    constructor({ discordClient, logger, 'digbot.commands.foundation.CommandRegister': register, 'digbot.util.RateLimiter': rateLimiter }) {// eslint-disable-line
         super();
 
         this.prefix = '!';
 
-        this.client = discordjsClient;
+        this.client = discordClient;
         this.logger = logger;
         this.register = register;
         this.ratelimiter = rateLimiter;

@@ -6,14 +6,14 @@ const { RichEmbed } = require('discord.js');
 const [SEND_JOB, UPDATE_JOB] = ['send', 'update'];
 
 module.exports = class DiscordMessageQueue extends Queue {
-    constructor({ logger, discordjsClient, opts: { redisOpts } }) {
+    constructor({ logger, discordClient, opts: { redisOpts } }) {
         super('discord messages', redisOpts, {
             defaultJobOptions: {
                 attempts: 3,
             },
         });
 
-        this.discordclient = discordjsClient;
+        this.discordclient = discordClient;
 
         this.registerEvents();
 

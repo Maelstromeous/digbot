@@ -4,12 +4,12 @@ const Dispatcher = require('../foundation/Dispatcher');
 module.exports = class DiscordconnectionDispatcher extends Dispatcher {
     /**
      *
-     * @param discordjsClient
+     * @param discordClient
      */
-    constructor({ discordjsClient }) {
+    constructor({ discordClient }) {
         super();
 
-        this.client = discordjsClient;
+        this.client = discordClient;
     }
 
     /**

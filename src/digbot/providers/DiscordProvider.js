@@ -10,12 +10,12 @@ module.exports = class DiscordProvider extends ServiceProvider {
      * Register any app dependency
      */
     register() {
-        this.container.register('discordjsClient', asFunction(({ logger }) => {
+        this.container.register('discordClient', asFunction(({ logger }) => {
             const client = new Client();
 
             const log = message => ({
                 message,
-                label: 'discordjsClient',
+                label: 'discordClient',
             });
 
             client.on('ready', () => logger.info(log('Connected to Discord')));
@@ -42,8 +42,8 @@ module.exports = class DiscordProvider extends ServiceProvider {
      *
      * @return {Promise<void>}
      */
-    async boot({ discordjsClient }) {
-        await discordjsClient.login(config.get('token'));
+    async boot({ discordClient }) {
+        await discordClient.login(config.get('token'));
 
         setImmediate(subBots.ready);
     }

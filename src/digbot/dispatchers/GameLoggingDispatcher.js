@@ -4,13 +4,13 @@ const GamePresence = require('../database/GamePresence');
 
 module.exports = class GameLoggingDispatcher extends Dispatcher {
     /**
-     * @param discordjsClient
+     * @param discordClient
      * @param logger
      */
-    constructor({ discordjsClient }) {
+    constructor({ discordClient }) {
         super();
 
-        this.client = discordjsClient;
+        this.client = discordClient;
     }
 
     /**
