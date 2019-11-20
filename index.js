@@ -1,7 +1,7 @@
 const config = require('config');
-const { version } = require('../package');
+const { version } = require('./package');
 
-const app = require('./bootstrap');
+const app = require('./src/bootstrap');
 
 const kernel = app.resolve('kernel');
 

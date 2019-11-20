@@ -4,7 +4,7 @@
   "description": "DIGBot is a custom made discord bot for the DIG gaming community",
   "main": "index.js",
   "scripts": {
-    "start": "node src/bot.js",
+    "start": "node .",
     "test": "mocha",
     "docker:start": "docker-compose up --build -d",
     "docker:logs": "docker-compose logs -f digbot",
@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://JamesLongman@github.com/JamesLongman/DIGBot.git"
+    "url": "git+https://github.com/dignityofwar/digbot.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/JamesLongman/DIGBot/issues"
+    "url": "https://github.com/dignityofwar/digbot/issues"
   },
-  "homepage": "https://github.com/JamesLongman/DIGBot#readme",
+  "homepage": "https://github.com/dignityofwar/digbot#readme",
   "dependencies": {
     "awilix": "^4.2.2",
     "axios": "^0.19.0",
