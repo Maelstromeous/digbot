@@ -51,7 +51,7 @@ module.exports = class ChannelCommand extends Command {
                     .then(() => logger.debug(TAG, 'Succesfully created text channel'))
                     .catch(err => logger.warning(TAG, `Failed to create text channel, error: ${err}`));
             } else {
-                await msg.guild.createChannel(name, type)
+                await msg.guild.createChannel(name, { type })
                     .then(() => logger.debug(TAG, 'Succesfully created voice channel'))
                     .catch(err => logger.warning(TAG, `Failed to create voice channel, error: ${err}`));
             }

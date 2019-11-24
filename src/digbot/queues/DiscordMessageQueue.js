@@ -103,7 +103,7 @@ module.exports = class DiscordMessageQueue extends Queue {
 module.exports[RESOLVER] = {
     injector: () => ({
         opts: {
-            redisOpts: config.get('database.redis.url'),
+            redisOpts: config.get('database.redis'),
         },
     }),
 };

@@ -5,9 +5,7 @@
   "subBotLimit": "SUBBOTS_LIMIT",
 
   "database"   : {
-    "redis": {
-      "url": "REDIS_URL"
-    },
+    "redis":  "REDIS_URL",
     "mongo": {
       "url": "MONGO_URL"
     }
