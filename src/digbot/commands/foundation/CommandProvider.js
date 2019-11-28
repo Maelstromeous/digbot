@@ -1,3 +1,5 @@
+const { isString } = require('lodash');
+
 const ServiceProvider = require('../../foundation/ServiceProvider');
 const Pipeline = require('../../util/Pipeline');
 
@@ -69,7 +71,7 @@ module.exports = class CommandProvider extends ServiceProvider {
     parseMiddleware(string) {
         const [name, parameters] = string.split(':');
 
-        if (parameters instanceof String) {
+        if (isString(parameters)) {
             return [name, parameters.split(',')];
         }
 
