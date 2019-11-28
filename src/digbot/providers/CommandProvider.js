@@ -55,7 +55,7 @@ module.exports = class CommandProvider extends BaseProvider {
             });
 
             this.command('digbot.commands.HelpCommand', {
-                middleware: 'digbot.commands.middleware.Throttle:1,30,true',
+                middleware: ['digbot.commands.middleware.Throttle:1,30,true'],
             });
 
 
@@ -77,7 +77,6 @@ module.exports = class CommandProvider extends BaseProvider {
                 this.command('digbot.commands.PingCommand');
                 this.command('digbot.commands.RestartCommand');
                 this.command('digbot.commands.StatsCommand');
-
             });
         });
     }

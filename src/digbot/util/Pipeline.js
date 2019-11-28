@@ -1,3 +1,5 @@
+const { isString } = require('lodash');
+
 module.exports = class Pipeline {
     constructor() {
         this.entrance = passable => passable;
@@ -5,7 +7,7 @@ module.exports = class Pipeline {
 
     pipes(pipes) {
         for (const pipe of pipes.reverse()) { // TODO: Backwards iterator?
-            this.pipe(pipe);
+            this.pipe(...pipe);
         }
 
         return this;
@@ -19,12 +21,16 @@ module.exports = class Pipeline {
             const [method, ...parameters] = args;
 
             this.entrance = passable => method(passable, next, ...parameters);
-        } else if (args[0] instanceof Object && args[1] instanceof String) {
+        } else if (args[0] instanceof Object && isString(args[1])) {
             const [object, method, ...parameters] = args;
+
+            if (!(object[method] instanceof Function)) {
+                throw new TypeError(`object.${method} is not a function`);
+            }
 
             this.entrance = passable => object[method](passable, next, ...parameters);
         } else {
-            throw new TypeError('The argument passed to pipe is not recognized.');
+            throw new TypeError(`The argument passed to pipe is not recognized: ${args}`);
         }
 
         return this;

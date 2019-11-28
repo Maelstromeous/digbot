@@ -2,8 +2,8 @@ const ServiceProvider = require('../../foundation/ServiceProvider');
 const Pipeline = require('../../util/Pipeline');
 
 module.exports = class CommandProvider extends ServiceProvider {
-    constructor() {
-        super();
+    constructor(cradle) {
+        super(cradle);
 
         this.optsStack = [];
     }
@@ -18,7 +18,7 @@ module.exports = class CommandProvider extends ServiceProvider {
     }
 
     get registery() {
-        if (this.commandRegister) {
+        if (!this.commandRegister) {
             this.commandRegister = this.container.resolve('digbot.commands.foundation.CommandRegister');
         }
 
@@ -37,7 +37,7 @@ module.exports = class CommandProvider extends ServiceProvider {
 
     command(name, opts) {
         const pipeline = new Pipeline();
-        const { middleware } = this.mergeOpts(opts);
+        const { middleware = [] } = this.mergeOpts(opts || {});
 
         const command = this.container.resolve(name);
 
@@ -48,12 +48,23 @@ module.exports = class CommandProvider extends ServiceProvider {
 
             return [
                 this.container.resolve(mw),
+                'handle',
                 ...parameters,
             ];
         }));
 
-        this.registery.set(command.name, pipeline);
+        this.registery.set(command.name, { command, pipeline });
     }
+
+    mergeOpts(opts) {
+        return [...this.optsStack].reverse()
+            .reduce((acc, cur) => {
+                acc.middleware = (acc.middleware || []).concat(cur.middleware || []);
+
+                return acc;
+            }, opts);
+    }
+
 
     parseMiddleware(string) {
         const [name, parameters] = string.split(':');

@@ -1,10 +1,4 @@
-const { get } = require('lodash');
-
 module.exports = class Command {
-    constructor({ opts }) {
-        this.middleware = get(opts, 'middleware', []);
-    }
-
     /**
      * @param message
      * @return {Promise<void>}

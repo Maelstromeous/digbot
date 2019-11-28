@@ -42,12 +42,12 @@ module.exports = class CommandDispatcher extends Dispatcher {
         if (!message.cleanContent.startsWith(this.prefix)) { return; }
 
         // TODO: Parsing the message should yield the command pipeline as well as a request with parameters parsed
-        const commandPipeline = this.match(message);
+        const { command, pipeline } = this.match(message);
 
-        if (commandPipeline) {
-            const request = new Request(message);
+        if (pipeline) {
+            const request = new Request(command, message);
 
-            commandPipeline.send(request);
+            pipeline.send(request);
         }
     }
 

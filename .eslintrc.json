@@ -12,6 +12,7 @@
       1,
       120
     ],
+    "no-shadow"             : "off",
     "no-plusplus"           : "off",
     "no-empty-function"     : "off",
     "no-param-reassign"     : "off",

@@ -1,6 +1,7 @@
 module.exports = class Throttle {
-    constructor({ logger }) {
+    constructor({ logger, 'digbot.util.RateLimiter': ratelimiter }) {
         this.logger = logger;
+        this.ratelimiter = ratelimiter;
     }
 
     async handle(request, next, max, decay, peruser, message) {
