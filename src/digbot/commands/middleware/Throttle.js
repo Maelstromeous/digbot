@@ -4,12 +4,12 @@ module.exports = class Throttle {
         this.ratelimiter = ratelimiter;
     }
 
-    async handle(request, next, max, decay, peruser, message) {
+    async handle(request, next, max = 5, decay = 5, peruser = true) {
         const throttleKey = this.makeThrottleKey(request, peruser);
 
         if (await this.ratelimiter.tooManyAttempts(
             throttleKey,
-            parseInt(max) || 5,
+            max,
         )) {
             this.logger.info({
                 message: `Command throttled: ${throttleKey}`,
@@ -17,15 +17,15 @@ module.exports = class Throttle {
             });
 
             // TODO: Should probably throttle the throttle message
-            if (message && peruser) {
-                request.reply(message);
-            } else if (message) {
-                request.respond(message);
+            if (request.command.throttled instanceof Function) {
+                peruser.toString() === 'true' // TODO: Need to address typecasting, maybe
+                    ? request.reply(request.command.throttled())
+                    : request.respond(request.command.throttled());
             } else {
                 request.react('🛑');
             }
         } else {
-            await this.ratelimiter.hit(throttleKey, parseInt(decay) || 5);
+            await this.ratelimiter.hit(throttleKey, decay);
 
             await next(request);
         }
