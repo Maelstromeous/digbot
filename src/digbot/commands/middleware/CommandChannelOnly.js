@@ -8,8 +8,8 @@ module.exports = class CommandChannelOnly {
     }
 
     guildCommandChannels(guild) {
-        if (config.has(`guild.${guild.id}.commandChannels`)) {
-            return config.get(`guild.${guild.id}.commandChannels`);
+        if (config.has(`guilds.${guild.id}.commandChannels`)) {
+            return config.get(`guilds.${guild.id}.commandChannels`);
         }
 
         return [];

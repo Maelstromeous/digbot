@@ -4,9 +4,9 @@ module.exports = class AdminOnly {
     async handle(request, next) {
         if (this.canExecuteCommand(request)) {
             await next(request);
+        } else {
+            request.react('🔒');
         }
-
-        request.react('🔒');
     }
 
     canExecuteCommand({ message: { guild, member } }) {

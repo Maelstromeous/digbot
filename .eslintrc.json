@@ -12,6 +12,7 @@
       1,
       120
     ],
+    "radix"                 : "off",
     "no-shadow"             : "off",
     "no-plusplus"           : "off",
     "no-empty-function"     : "off",

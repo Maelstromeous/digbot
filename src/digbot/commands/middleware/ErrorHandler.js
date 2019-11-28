@@ -3,7 +3,7 @@ module.exports = class ErrorHandler {
         this.logger = logger;
     }
 
-    async handler(request, next) {
+    async handle(request, next) {
         await next(request).catch((error) => {
             this.logger.error({
                 message: error.toString(),

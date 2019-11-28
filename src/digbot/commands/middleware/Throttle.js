@@ -9,7 +9,7 @@ module.exports = class Throttle {
 
         if (await this.ratelimiter.tooManyAttempts(
             throttleKey,
-            max || 5,
+            parseInt(max) || 5,
         )) {
             this.logger.info({
                 message: `Command throttled: ${throttleKey}`,
@@ -25,7 +25,7 @@ module.exports = class Throttle {
                 request.react('🛑');
             }
         } else {
-            await this.ratelimiter.hit(throttleKey, decay || 5);
+            await this.ratelimiter.hit(throttleKey, parseInt(decay) || 5);
 
             await next(request);
         }

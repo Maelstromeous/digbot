@@ -25,7 +25,7 @@ module.exports = class Pipeline {
             const [object, method, ...parameters] = args;
 
             if (!(object[method] instanceof Function)) {
-                throw new TypeError(`object.${method} is not a function`);
+                throw new TypeError(`${object.constructor.name}.${method} is not a function`);
             }
 
             this.entrance = passable => object[method](passable, next, ...parameters);

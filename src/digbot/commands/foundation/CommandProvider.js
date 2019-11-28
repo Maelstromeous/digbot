@@ -59,7 +59,7 @@ module.exports = class CommandProvider extends ServiceProvider {
     mergeOpts(opts) {
         return [...this.optsStack].reverse()
             .reduce((acc, cur) => {
-                acc.middleware = (acc.middleware || []).concat(cur.middleware || []);
+                acc.middleware = (cur.middleware || []).concat(acc.middleware || []);
 
                 return acc;
             }, opts);
