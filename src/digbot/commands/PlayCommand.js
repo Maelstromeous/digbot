@@ -228,7 +228,7 @@ module.exports = class PlayCommand extends Command {
             + '\nplaylist: Play music from a playlist we have on file, or by youtube playlist ID'
             + '\nstop: This command will stop music currently streaming in your channel, please '
             + 'respect the channel owners and other people in your channel'
-            + '\nskip: This command will skip the current song if you\'re listening to a playlist'
+            + '\nskip: This command will skip the entrance song if you\'re listening to a playlist'
             + '\nvolume: This command adjusts the playback volume of a bot palying in your channel, '
             + 'accepted specifications are *up* and *down*'
             + '\n'
@@ -258,7 +258,7 @@ module.exports = class PlayCommand extends Command {
     }
 };
 
-// Terminates the current connection and stream dispatcher if there is one for a channel
+// Terminates the entrance connection and stream dispatcher if there is one for a channel
 function kill(x, remove) {
     if (playing[x].dispatcher) {
         const temp = playing[x].dispatcher;

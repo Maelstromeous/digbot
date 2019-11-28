@@ -13,15 +13,15 @@ module.exports = class LoggerProvider extends ServiceProvider {
      * Register any app dependency
      */
     register() {
-        this.container.register('loggerDefaultFormat', asValue([
-            format.timestamp({
-                format: 'YYYY-MM-DD HH:mm:ss',
-            }),
-            format.printf(info => `${info.timestamp} [${info.label || 'general'}] ${info.level}: ${info.message}`),
-        ]));
+        this.container.register({
+            loggerDefaultFormat: asValue([
+                format.timestamp({
+                    format: 'YYYY-MM-DD HH:mm:ss',
+                }),
+                format.printf(info => `${info.timestamp} [${info.label || 'general'}] ${info.level}: ${info.message}`),
+            ]),
 
-        this.container.register('loggerConsoleTransportFactory',
-            asFunction(({ loggerDefaultFormat }) => (level) => {
+            loggerConsoleTransportFactory: asFunction(({ loggerDefaultFormat }) => (level) => {
                 const opts = {
                     format: format.combine(
                         format.colorize(),
@@ -34,35 +34,36 @@ module.exports = class LoggerProvider extends ServiceProvider {
                 }
 
                 return new ConsoleTransport(opts);
-            }));
+            }),
 
-        this.container.register('loggerDiscordTransportFactory',
-            asFunction(({ 'digbot.queues.DiscordMessageQueue': queue }) => (channelID, level) => {
-                const opts = {
-                    format: format.combine(
-                        ...this.container.resolve('loggerDefaultFormat'),
-                        discordRichEmbed(),
-                    ),
-                    channelID,
-                };
+            loggerDiscordTransportFactory:
+                asFunction(({ 'digbot.queues.DiscordMessageQueue': queue }) => (channelID, level) => {
+                    const opts = {
+                        format: format.combine(
+                            ...this.container.resolve('loggerDefaultFormat'),
+                            discordRichEmbed(),
+                        ),
+                        channelID,
+                    };
 
-                if (!isEmpty(level)) {
-                    opts.level = level;
-                }
+                    if (!isEmpty(level)) {
+                        opts.level = level;
+                    }
 
-                return new DiscordTransport({
-                    'digbot.queues.DiscordMessageQueue': queue,
-                    opts,
-                });
-            }));
+                    return new DiscordTransport({
+                        'digbot.queues.DiscordMessageQueue': queue,
+                        opts,
+                    });
+                }),
 
-        this.container.register('logger', asFunction(({ loggerConsoleTransportFactory }) => createLogger({
-            level: config.get('logger.level'),
-            transports: [
-                loggerConsoleTransportFactory(),
-            ],
-        }))
-            .singleton());
+            logger: asFunction(({ loggerConsoleTransportFactory }) => createLogger({
+                level: config.get('logger.level'),
+                transports: [
+                    loggerConsoleTransportFactory(),
+                ],
+            }))
+                .singleton(),
+        });
     }
 
     async boot({ kernel, logger }) {

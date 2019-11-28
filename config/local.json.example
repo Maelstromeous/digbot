@@ -1,6 +1,4 @@
 {
-  "showPerfStats"    : true,
-
   "botUserID"        : "",
   "subBots"          : {
     "bot2": {

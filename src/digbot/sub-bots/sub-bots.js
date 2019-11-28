@@ -158,16 +158,7 @@ module.exports = {
                 });
 
             bot.on('ready', () => {
-                if (config.util.getEnv('NODE_ENV') !== 'production') {
-                    bot.channels.get(config.get('channels.mappings.digbot'))
-                        .send('Sub bot reporting for duty')
-                        .then(() => {
-                            logger.debug(TAG, 'Sub bot succesfully sent message');
-                        })
-                        .catch((err) => {
-                            logger.warning(TAG, `Sub bot failed to send message, ${err}`);
-                        });
-                }
+                logger.debug(TAG, `Successfully logged in sub bot: ${bot.user.id}`);
             });
         }
         return true;

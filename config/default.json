@@ -1,7 +1,6 @@
 {
   "debug"                   : false,
 
-  "botUserID"               : "",
   "subBotLimit"             : 5,
   "subBots"                 : {},
 
@@ -15,13 +14,13 @@
     }
   },
 
+  "devs"                    : [],
+
   "logger"                  : {
     "level"     : "info",
 
     "transports": []
   },
-
-  "commandChannels"         : [],
 
   "guilds"                  : {},
 
@@ -34,13 +33,6 @@
     "leaderRoles"    : []
   },
 
-  "antispamCommandTick"     : 300000,
-  "antispamCommandLimitCats": 2,
-  "antispamUserTick"        : 120000,
-  "antispamUserLimit"       : 10,
-  "autoDeleteChannels"      : 1200000,
-  "eventProtection"         : 900000,
-  "inactivityLimit"         : 30,
   "memberMentionLimit"      : 20,
   "mentionsMuteTime"        : 7200000,
   "roleMentionLimit"        : 5,
@@ -48,8 +40,6 @@
 
   "channels"                : {
     "mappings": {
-      "developers": "",
-      "digbot"    : "",
       "general"   : "",
       "staff"     : ""
     }

@@ -9,10 +9,11 @@ module.exports = class CommandRegister extends Map {
     }
 
     /**
-     * @param command
+     * @param key
+     * @param value
      */
-    add(command) {
-        this.set(command.name.toUpperCase(), command);
+    set(key, value) {
+        super.set(key.toUpperCase(), value);
     }
 
     /**

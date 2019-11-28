@@ -1,8 +1,7 @@
 const { Message } = require('discord.js');
 
 module.exports = class Request {
-    constructor(command, message) {
-        this.command = command;
+    constructor(message) {
         this.message = message;
     }
 

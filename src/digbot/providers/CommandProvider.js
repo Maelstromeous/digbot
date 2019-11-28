@@ -1,66 +1,84 @@
-// const config = require('config');
-const { asClass } = require('awilix');
-const { isString } = require('lodash');
-const ServiceProvider = require('../foundation/ServiceProvider');
-
-const CommandRegister = require('../commands/foundation/CommandRegister');
+const BaseProvider = require('../commands/foundation/CommandProvider');
 
 const play = require('../commands/PlayCommand');
 const sfx = require('../commands/SfxCommand');
 
 
-module.exports = class QueueProvider extends ServiceProvider {
-    /**
-     * TODO: Maybe register them in the config file?
-     *
-     * @return {({execute}|*)[]}
-     */
-    get commands() {
-        return [
-            'digbot.commands.AdminCommand',
-            'digbot.commands.CatFactsCommand',
-            'digbot.commands.CatsCommand',
-            'digbot.commands.ChannelCommand',
-            'digbot.commands.DogsCommand',
-            'digbot.commands.DragonsCommand',
-            'digbot.commands.HelpCommand',
-            'digbot.commands.IgnoreCommand',
-            'digbot.commands.LmgtfyCommand',
-            'digbot.commands.MentionsCommand',
-            'digbot.commands.PingCommand',
-            'digbot.commands.PlayCommand',
-            'digbot.commands.PretendCommand',
-            'digbot.commands.PS2DIGCommand',
-            'digbot.commands.ReportCommand',
-            'digbot.commands.RestartCommand',
-            'digbot.commands.SfxCommand',
-            'digbot.commands.StatsCommand',
-            'digbot.commands.TriviaCommand',
-        ];
-    }
-
-    /**
-     * Register any app dependencies
-     */
-    register() {
-        this.container.register('commandRegister', asClass(CommandRegister)
-            .singleton());
-    }
-
+module.exports = class CommandProvider extends BaseProvider {
     /**
      * Boots any dependency
      *
      * @return {Promise<void>}
      */
-    async boot({ 'digbot.commands.foundation.CommandRegister': register }) {
-        for (const command of this.commands) {
-            register.add(
-                isString(command)
-                    ? this.container.resolve(command)
-                    : this.container.build(command));
-        }
+    async boot(cradle) {
+        super.boot(cradle);
 
         play.ready();
         sfx.ready();
+    }
+
+    registerCommands() {
+        this.group({
+            middleware: [
+                'digbot.commands.middleware.ErrorHandler',
+                'digbot.commands.middleware.CommandChannelOnly',
+            ],
+        }, () => {
+            // Default throttled commands
+            this.group({
+                middleware: [
+                    'digbot.commands.middleware.Throttle',
+                ],
+            }, () => {
+                this.command('digbot.commands.CatFactsCommand');
+                this.command('digbot.commands.ChannelCommand');
+                this.command('digbot.commands.DragonsCommand');
+                this.command('digbot.commands.IgnoreCommand');
+                this.command('digbot.commands.LmgtfyCommand');
+                this.command('digbot.commands.MentionsCommand');
+                this.command('digbot.commands.PlayCommand');
+                this.command('digbot.commands.PretendCommand');
+                this.command('digbot.commands.PS2DIGCommand');
+                this.command('digbot.commands.ReportCommand');
+                this.command('digbot.commands.SfxCommand');
+                this.command('digbot.commands.TriviaCommand');
+            });
+
+            // Command with unique throttle
+            this.group({
+                middleware: [
+                    'digbot.commands.middleware.Throttle:2,5',
+                ],
+            }, () => {
+                this.command('digbot.commands.CatsCommand');
+                this.command('digbot.commands.DogsCommand');
+            });
+
+            this.command('digbot.commands.HelpCommand', {
+                middleware: 'digbot.commands.middleware.Throttle:1,30,true',
+            });
+
+
+            // Admin commands
+            // this.group({
+            //     middleware: [
+            //         'digbot.commands.middleware.AdminOnly',
+            //     ],
+            // }, () => {
+            //
+            // });
+
+            // Dev commands
+            this.group({
+                middleware: [
+                    'digbot.commands.middleware.DevsOnly',
+                ],
+            }, () => {
+                this.command('digbot.commands.PingCommand');
+                this.command('digbot.commands.RestartCommand');
+                this.command('digbot.commands.StatsCommand');
+
+            });
+        });
     }
 };
