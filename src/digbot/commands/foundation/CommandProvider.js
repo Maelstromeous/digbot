@@ -1,7 +1,6 @@
 const { isString } = require('lodash');
 
 const ServiceProvider = require('../../foundation/ServiceProvider');
-const Pipeline = require('../../util/Pipeline');
 
 module.exports = class CommandProvider extends ServiceProvider {
     constructor(cradle) {
@@ -38,14 +37,11 @@ module.exports = class CommandProvider extends ServiceProvider {
     }
 
     command(name, opts) {
-        const pipeline = new Pipeline();
-        const { middleware = [] } = this.mergeOpts(opts || {});
+        const { middleware = [], group = 'default' } = this.mergeOpts(opts || {});
 
         const command = this.container.resolve(name);
 
-        pipeline.pipe(command, 'execute');
-
-        pipeline.pipes(middleware.map((s) => {
+        command.pipes(middleware.map((s) => {
             const [mw, parameters] = this.parseMiddleware(s);
 
             return [
@@ -55,13 +51,17 @@ module.exports = class CommandProvider extends ServiceProvider {
             ];
         }));
 
-        this.registery.set(command.name, { command, pipeline });
+        this.registery.set(command.name, command, group);
     }
 
     mergeOpts(opts) {
         return [...this.optsStack].reverse()
             .reduce((acc, cur) => {
                 acc.middleware = (cur.middleware || []).concat(acc.middleware || []);
+
+                if (!acc.group) {
+                    acc.group = cur.group;
+                }
 
                 return acc;
             }, opts);

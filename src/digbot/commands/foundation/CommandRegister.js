@@ -6,14 +6,33 @@ module.exports = class CommandRegister extends Map {
      */
     constructor() {
         super();
+
+        this.groups = new Map();
     }
 
     /**
      * @param key
      * @param value
      */
-    set(key, value) {
+    set(key, value, group = 'default') {
         super.set(key.toUpperCase(), value);
+
+        if (!this.groups.has(group)) {
+            this.groups.set(group, []);
+        }
+
+        this.getGroup(group)
+            .push(value);
+    }
+
+    getGroup(name) {
+        const group = this.groups.get(name) || [];
+
+        if (this.groups.has(name)) {
+            this.groups.set(group);
+        }
+
+        return group;
     }
 
     /**
@@ -22,13 +41,6 @@ module.exports = class CommandRegister extends Map {
      */
     get(key) {
         return super.get(key.toUpperCase());
-    }
-
-    /**
-     * @return {Array}
-     */
-    toArray() {
-        return Array.from(this.values());
     }
 };
 

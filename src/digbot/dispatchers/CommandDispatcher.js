@@ -42,12 +42,12 @@ module.exports = class CommandDispatcher extends Dispatcher {
         if (!message.cleanContent.startsWith(this.prefix)) { return; }
 
         // TODO: Parsing the message should yield the command pipeline as well as a request with parameters parsed
-        const { command, pipeline } = this.match(message);
+        const command = this.match(message);
 
-        if (pipeline) {
+        if (command) {
             const request = new Request(command, message);
 
-            pipeline.send(request);
+            command.send(request);
         }
     }
 
@@ -60,8 +60,8 @@ module.exports = class CommandDispatcher extends Dispatcher {
     }
 
     /**
-     * @param {string} content
-     * @return {String}
+     * @param content
+     * @return {*}
      */
     parseCommandName(content) {
         return content.match(/[^\s]+/)[0].slice(1);

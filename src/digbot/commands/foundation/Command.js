@@ -1,4 +1,12 @@
-module.exports = class Command {
+const Pipeline = require('../../util/Pipeline');
+
+module.exports = class Command extends Pipeline {
+    constructor() {
+        super();
+
+        this.pipe(this, 'execute');
+    }
+
     /**
      * @param message
      * @return {Promise<void>}

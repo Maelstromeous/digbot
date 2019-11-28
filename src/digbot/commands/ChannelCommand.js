@@ -71,7 +71,7 @@ module.exports = class ChannelCommand extends Command {
      * @return {string}
      */
     help() {
-        return 'Used to create and delete temporary channels denoted by "-t-", works for both voice and text.';
+        return 'Used to create and delete temporary channels denoted by "-t-", works for both voice and text. Example: !channel create voice awesome-game';
     }
 };
 
@@ -103,10 +103,12 @@ function filterAction(msg) {
             .catch(err => logger.warning(TAG, `Failed to send message, error: ${err}`));
         return false;
     }
-    if (msg.content.substring(9).startsWith('create')) {
+    if (msg.content.substring(9)
+        .startsWith('create')) {
         return 'create';
     }
-    if (msg.content.substring(9).startsWith('delete')) {
+    if (msg.content.substring(9)
+        .startsWith('delete')) {
         return 'delete';
     }
     msg.channel.send('Sorry I don\'t understand that action, the action must be '
@@ -119,10 +121,12 @@ function filterAction(msg) {
 
 // Identifies and returns the channel name contained in the command
 function filterName(msg) {
-    if (msg.content.substring(16).startsWith('text')) {
+    if (msg.content.substring(16)
+        .startsWith('text')) {
         return msg.content.substring(21);
     }
-    if (msg.content.substring(16).startsWith('voice')) {
+    if (msg.content.substring(16)
+        .startsWith('voice')) {
         return msg.content.substring(22);
     }
     return '';
@@ -130,10 +134,12 @@ function filterName(msg) {
 
 // Identifies and returns the type contained in the command
 function filterType(msg) {
-    if (msg.content.substring(16).startsWith('text')) {
+    if (msg.content.substring(16)
+        .startsWith('text')) {
         return 'text';
     }
-    if (msg.content.substring(16).startsWith('voice')) {
+    if (msg.content.substring(16)
+        .startsWith('voice')) {
         return 'voice';
     }
     msg.channel.send('Sorry I don\'t understand that type, the type must be either '

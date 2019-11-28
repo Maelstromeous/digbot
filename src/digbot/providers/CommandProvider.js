@@ -3,7 +3,6 @@ const BaseProvider = require('../commands/foundation/CommandProvider');
 const play = require('../commands/PlayCommand');
 const sfx = require('../commands/SfxCommand');
 
-
 module.exports = class CommandProvider extends BaseProvider {
     /**
      * Boots any dependency
@@ -54,16 +53,19 @@ module.exports = class CommandProvider extends BaseProvider {
             });
 
             this.command('digbot.commands.HelpCommand', {
+                group: 'inv',
                 middleware: ['digbot.commands.middleware.Throttle:1,30,false'],
             });
 
 
             // Admin commands
             this.group({
+                group: 'admin',
                 middleware: [
                     'digbot.commands.middleware.AdminOnly',
                 ],
             }, () => {
+                this.command('digbot.commands.AdminCommand');
                 this.command('digbot.commands.ReportCommand', {
                     middleware: ['digbot.commands.middleware.Throttle:2,15'],
                 });
@@ -71,6 +73,7 @@ module.exports = class CommandProvider extends BaseProvider {
 
             // Dev commands
             this.group({
+                group: 'dev',
                 middleware: [
                     'digbot.commands.middleware.DevsOnly',
                 ],

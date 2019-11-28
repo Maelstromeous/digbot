@@ -6,6 +6,7 @@ module.exports = class HelpCommand extends Command {
         super();
 
         this.name = 'help';
+        this.groupName = 'default';
 
         this.register = register;
     }
@@ -24,7 +25,9 @@ module.exports = class HelpCommand extends Command {
     createReply() {
         const embed = new RichEmbed().setTitle('Commands');
 
-        this.register.toArray().filter(({ special }) => !special).forEach(c => embed.addField(`!${c.name}`, c.help()));
+        this.register.getGroup(this.groupName)
+            .filter(({ special }) => !special)
+            .forEach(c => embed.addField(`!${c.name}`, c.help()));
 
         return embed;
     }
