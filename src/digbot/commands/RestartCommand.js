@@ -9,7 +9,6 @@ module.exports = class RestartCommand extends Command {
         super();
 
         this.name = 'restart';
-        this.special = true;
 
         this.kernel = kernel;
         this.logger = logger;

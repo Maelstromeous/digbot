@@ -7,11 +7,6 @@ module.exports = class CatsCommand extends Command {
 
         this.name = 'cats';
 
-        this.throttle = {
-            attempts: 2,
-            decay: 5,
-        };
-
         this.api = api;
     }
 

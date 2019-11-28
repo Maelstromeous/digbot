@@ -7,8 +7,6 @@ module.exports = class PingCommand extends Command {
 
         this.name = 'ping';
 
-        this.special = true;
-
         this.client = discordClient;
     }
 

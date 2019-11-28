@@ -39,7 +39,6 @@ module.exports = class CommandProvider extends BaseProvider {
                 this.command('digbot.commands.PlayCommand');
                 this.command('digbot.commands.PretendCommand');
                 this.command('digbot.commands.PS2DIGCommand');
-                this.command('digbot.commands.ReportCommand');
                 this.command('digbot.commands.SfxCommand');
                 this.command('digbot.commands.TriviaCommand');
             });
@@ -60,13 +59,15 @@ module.exports = class CommandProvider extends BaseProvider {
 
 
             // Admin commands
-            // this.group({
-            //     middleware: [
-            //         'digbot.commands.middleware.AdminOnly',
-            //     ],
-            // }, () => {
-            //
-            // });
+            this.group({
+                middleware: [
+                    'digbot.commands.middleware.AdminOnly',
+                ],
+            }, () => {
+                this.command('digbot.commands.ReportCommand', {
+                    middleware: ['digbot.commands.middleware.Throttle:2,15'],
+                });
+            });
 
             // Dev commands
             this.group({

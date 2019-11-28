@@ -5,7 +5,6 @@ module.exports = class AdminCommand extends Command {
         super();
 
         this.name = 'admin';
-        this.special = true;
 
         this.register = register;
     }

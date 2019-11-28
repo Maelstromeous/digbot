@@ -33,11 +33,6 @@ module.exports = class PlayCommand extends Command {
         super();
 
         this.name = 'play';
-
-        this.throttle = {
-            attempts: 8,
-            decay: 2,
-        };
     }
 
     async execute({ message: msg }) { // eslint-disable-line consistent-return

@@ -7,12 +7,6 @@ module.exports = class HelpCommand extends Command {
 
         this.name = 'help';
 
-        this.throttle = {
-            attempts: 1,
-            decay: 30,
-            peruser: false,
-        };
-
         this.register = register;
     }
 

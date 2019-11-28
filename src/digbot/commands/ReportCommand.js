@@ -15,13 +15,6 @@ module.exports = class ReportCommand extends Command {
         super();
 
         this.name = 'report';
-        this.special = true;
-
-        this.throttle = {
-            attempts: 2,
-            decay: 5,
-            peruser: false,
-        };
     }
 
     /**
