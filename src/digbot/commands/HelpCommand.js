@@ -16,7 +16,8 @@ module.exports = class HelpCommand extends Command {
      * @return {Promise<void>}
      */
     async execute(request) {
-        return request.respond(this.createReply());
+        return this.getChannel(request)
+            .send(this.createReply());
     }
 
     /**
@@ -30,6 +31,10 @@ module.exports = class HelpCommand extends Command {
             .forEach(c => embed.addField(`!${c.name}`, c.help()));
 
         return embed;
+    }
+
+    getChannel(request) {
+        return request.message.channel;
     }
 
     /**

@@ -8,6 +8,10 @@ module.exports = class AdminCommand extends HelpCommand {
         this.groupName = 'admin';
     }
 
+    getChannel(request) {
+        return request.author;
+    }
+
     /**
      * @return {string}
      */

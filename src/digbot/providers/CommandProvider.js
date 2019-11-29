@@ -65,7 +65,7 @@ module.exports = class CommandProvider extends BaseProvider {
                     'digbot.commands.middleware.AdminOnly',
                 ],
             }, () => {
-                this.command('digbot.commands.AdminCommand');
+                this.command('digbot.commands.AdminCommand', { group: 'inv' });
                 this.command('digbot.commands.ReportCommand', {
                     middleware: ['digbot.commands.middleware.Throttle:2,15'],
                 });

@@ -13,6 +13,7 @@ module.exports = class CommandRegister extends Map {
     /**
      * @param key
      * @param value
+     * @param group
      */
     set(key, value, group = 'default') {
         super.set(key.toUpperCase(), value);

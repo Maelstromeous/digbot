@@ -6,7 +6,7 @@ module.exports = class Pipeline {
     }
 
     pipes(pipes) {
-        for (const pipe of pipes.reverse()) { // TODO: Backwards iterator?
+        for (const pipe of pipes.reverse()) { // TODO: Backwards iterator?!!
             this.pipe(...pipe);
         }
 
