@@ -30,6 +30,7 @@ module.exports = class App extends EventEmitter {
     registerBaseBindings() {
         this.register('app', asValue(this));
         this.register('container', aliasTo('app'));
+        this.register('cradle', asValue(this.cradle));
     }
 
     /**
