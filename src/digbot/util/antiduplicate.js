@@ -32,7 +32,7 @@ module.exports = {
             let check = lastpost[ref].indexOf(message);
 
             // Loop through the array and keep trying until we can pull out a message we've not seen
-            for (let runs = 0; runs < 30 && check !== -1; runs++) { // eslint-disable-line no-plusplus
+            for (let runs = 0; runs < 30 && check !== -1; runs++) {
                 rand = Math.floor(Math.random() * array.length);
                 message = array[rand];
                 check = lastpost[ref].indexOf(message);
