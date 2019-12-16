@@ -5,8 +5,8 @@ const ServiceProvider = require('../foundation/ServiceProvider');
 
 const autodelete = require('../admin/channels/autodelete.js');
 const mentionSpam = require('../admin/antispam/mentionspam.js');
-const play = require('../commands/PlayCommand.js');
-const sfx = require('../commands/SfxCommand.js');
+// const play = require('../commands/PlayCommand.js');
+// const sfx = require('../commands/SfxCommand.js');
 const server = require('../server/server.js');
 
 module.exports = class CheckProvider extends ServiceProvider {
@@ -14,7 +14,7 @@ module.exports = class CheckProvider extends ServiceProvider {
         this.container.register(
             'cronjobMentionSpam',
             asFunction(
-                () => new CronJob('* */5 * * * *', () => {
+                () => new CronJob('0 */5 * * * *', () => {
                     mentionSpam.release();
                 }),
             )
@@ -37,7 +37,7 @@ module.exports = class CheckProvider extends ServiceProvider {
         this.container.register(
             'cronjobChannels',
             asFunction(
-                () => new CronJob('* */20 * * * *', () => {
+                () => new CronJob('0 */20 * * * *', () => {
                     if (server.getGuild(config.get('general.server')) === null) { return; }
                     autodelete.execute(server.getGuild(config.get('general.server')));
                 }),
@@ -47,12 +47,12 @@ module.exports = class CheckProvider extends ServiceProvider {
         );
     }
 
-    async boot({ cronjobMentionSpam, cronjobAssets, cronjobChannels }) {
-        play.ready();
-        sfx.ready();
+    async boot({ cronjobMentionSpam, cronjobChannels }) {
+        // play.ready();
+        // sfx.ready();
 
         cronjobMentionSpam.start();
         cronjobChannels.start();
-        cronjobAssets.start();
+        // cronjobAssets.start();
     }
 };

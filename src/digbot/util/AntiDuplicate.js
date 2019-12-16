@@ -9,9 +9,15 @@ const TAG = 'Anti Duplicate';
 // Define global object to store the indentifier of the last dank ass meme posted for each command
 const lastpost = {};
 
-module.exports = {
-    // Searches the array and compares against recent messages, ensuring we get semi-random values
-    randomise(ref, array) {
+module.exports = class AntiDuplicate {
+    /**
+     * Searches the array and compares against recent messages, ensuring we get semi-random values
+     *
+     * @param ref
+     * @param array
+     * @return {*}
+     */
+    static randomise(ref, array) {
         // If theres only one message, then return it.
         if (array.length === 1) {
             return array[0];
@@ -46,5 +52,5 @@ module.exports = {
         lastpost[ref] = message;
 
         return message;
-    },
+    }
 };

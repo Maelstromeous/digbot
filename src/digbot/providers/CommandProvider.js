@@ -20,9 +20,9 @@ module.exports = class CommandProvider extends BaseProvider {
                 this.command('digbot.commands.IgnoreCommand');
                 this.command('digbot.commands.LmgtfyCommand');
                 this.command('digbot.commands.MentionsCommand');
-                this.command('digbot.commands.PlayCommand');
+                // this.command('digbot.commands.PlayCommand');
                 this.command('digbot.commands.PretendCommand');
-                this.command('digbot.commands.SfxCommand');
+                // this.command('digbot.commands.SfxCommand');
                 this.command('digbot.commands.TriviaCommand');
                 this.command('digbot.commands.YesNoCommand');
             });
@@ -64,7 +64,6 @@ module.exports = class CommandProvider extends BaseProvider {
                     'digbot.commands.middleware.DevsOnly',
                 ],
             }, () => {
-                this.command('digbot.commands.PingCommand');
                 this.command('digbot.commands.RestartCommand');
                 this.command('digbot.commands.StatsCommand');
             });

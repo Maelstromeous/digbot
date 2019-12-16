@@ -1,7 +1,6 @@
 const { expect } = require('chai');
 const { join } = require('path');
-
-const { readdirfilesSync } = require('../src/digbot/util/fs');
+const { lstatSync, readdirSync } = require('fs');
 
 const BaseCommand = require('../src/digbot/commands/foundation/Command');
 
@@ -31,3 +30,7 @@ describe('Commands', () => {
         });
     }
 });
+
+function readdirfilesSync(dir) {
+    return readdirSync(dir).filter(item => lstatSync(join(dir, item)).isFile());
+}

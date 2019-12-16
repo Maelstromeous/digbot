@@ -1,6 +1,6 @@
 const Command = require('./foundation/Command');
 
-const antiduplicate = require('../util/antiduplicate.js');
+const antiduplicate = require('../util/AntiDuplicate.js');
 const catFactsCommand = require('../../assets/catfacts.js');
 
 module.exports = class CatfactsCommand extends Command {

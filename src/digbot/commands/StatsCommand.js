@@ -1,16 +1,14 @@
 const { duration } = require('moment');
 const Command = require('./foundation/Command');
-const performance = require('../util/performance.js');
-const { pingStatus } = require('../util/ping');
 const { version } = require('../../../package');
 
 module.exports = class StatsCommand extends Command {
     constructor({ discordClient }) {
         super();
 
-        this.client = discordClient;
-
         this.name = 'stats';
+
+        this.client = discordClient;
     }
 
     /**
@@ -18,27 +16,18 @@ module.exports = class StatsCommand extends Command {
      * @return {Promise<void>}
      */
     async execute(request) {
-        return Promise.all([
-            request.respond('pong'),
-            performance.getCpu(),
-            performance.getMemory(),
-        ])
-            .then(([reply, cpu, memory]) => {
-                // TODO: Investegate guild presences size. It probably includes offline users.
-                //  Don't know if a map impact performance
-                // TODO: Use RichEmbed
-                reply.edit(
-                    '__**DIGBot Stats**__\n'
-                    + `**CPU Usage:** ${cpu}%\n`
-                    + `**Memory Usage:** ${memory}MB\n`
-                    + `**Version:** ${version}\n`
-                    + `**Ping:** ${Math.round(this.client.ping)}ms (${pingStatus(this.client.ping)})\n`
-                    + `**Runtime:** ${duration(process.uptime(), 'seconds').humanize()}\n`
-                    + `**Stable Discord connection for:** ${duration(this.client.uptime).humanize()}\n`
-                    + `**Members on server:** ${request.message.guild.memberCount}\n`
-                    + `**Server members in-game:** ${request.message.guild.presences.size}`,
-                );
-            });
+        const reply = await request.respond('pong');
+
+        // TODO: Use RichEmbed
+        return reply.edit(
+            '__**DIGBot Stats**__\n'
+            + `**Version:** ${version}\n`
+            + `**Ping:** ${Math.round(this.client.ping)}ms\n`
+            + `**Runtime:** ${duration(process.uptime(), 'seconds')
+                .humanize()}\n`
+            + `**Stable Discord connection for:** ${duration(this.client.uptime)
+                .humanize()}\n`,
+        );
     }
 
     /**

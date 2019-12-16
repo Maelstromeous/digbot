@@ -4,7 +4,7 @@ const ytdl = require('ytdl-core');
 
 const Command = require('./foundation/Command');
 
-const antiDuplicate = require('../util/antiduplicate.js');
+const antiDuplicate = require('../util/AntiDuplicate.js');
 const logger = require('../logger');
 const playAssets = require('../../assets/music/play-assets.js');
 const server = require('../server/server.js');

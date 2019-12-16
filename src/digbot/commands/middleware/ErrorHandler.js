@@ -10,7 +10,7 @@ module.exports = class ErrorHandler {
                 label: 'commandDispatcher',
             });
 
-            request.respond('I failed you'); // TODO: Better error message
+            request.respond('The hamster seems to have malfunctioned.');
         });
     }
 };
