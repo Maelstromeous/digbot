@@ -5,5 +5,5 @@ module.exports = [
     'digbot.providers.RedisProvider',
     'digbot.providers.DiscordProvider',
     'digbot.providers.CommandProvider',
-    'digbot.providers.CheckProvider',
+    'digbot.providers.CronProvider',
 ];
