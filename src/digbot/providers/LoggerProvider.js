@@ -67,9 +67,8 @@ module.exports = class LoggerProvider extends ServiceProvider {
     }
 
     async boot({ kernel, logger }) {
-        for (const transportConfig of config.get('logger.transports')) {
-            logger.add(this.createTransport(transportConfig));
-        }
+        config.get('logger.transports')
+            .forEach(transportConfig => logger.add(this.createTransport(transportConfig)));
 
         process.prependListener('uncaughtException', this.errorHandler.bind(this, kernel));
         process.prependListener('unhandledRejection', this.errorHandler.bind(this, kernel));

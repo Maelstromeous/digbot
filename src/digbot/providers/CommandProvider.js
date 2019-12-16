@@ -1,21 +1,6 @@
 const BaseProvider = require('../commands/foundation/CommandProvider');
 
-const play = require('../commands/PlayCommand');
-const sfx = require('../commands/SfxCommand');
-
 module.exports = class CommandProvider extends BaseProvider {
-    /**
-     * Boots any dependency
-     *
-     * @return {Promise<void>}
-     */
-    async boot(cradle) {
-        super.boot(cradle);
-
-        play.ready();
-        sfx.ready();
-    }
-
     registerCommands() {
         this.group({
             middleware: [
@@ -37,9 +22,9 @@ module.exports = class CommandProvider extends BaseProvider {
                 this.command('digbot.commands.MentionsCommand');
                 this.command('digbot.commands.PlayCommand');
                 this.command('digbot.commands.PretendCommand');
-                this.command('digbot.commands.PS2DIGCommand');
                 this.command('digbot.commands.SfxCommand');
                 this.command('digbot.commands.TriviaCommand');
+                this.command('digbot.commands.YesNoCommand');
             });
 
             // Command with unique throttle
@@ -50,6 +35,7 @@ module.exports = class CommandProvider extends BaseProvider {
             }, () => {
                 this.command('digbot.commands.CatsCommand');
                 this.command('digbot.commands.DogsCommand');
+                this.command('digbot.commands.PS2DIGCommand');
             });
 
             this.command('digbot.commands.HelpCommand', {
