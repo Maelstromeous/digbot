@@ -4,8 +4,6 @@ const forcedPTTCheck = require('../admin/roles/forcedpttcheck');
 const mentionSpam = require('../admin/antispam/mentionspam');
 const modularChannelSystem = require('../admin/channels/modularchannels');
 const nameCheck = require('../welcomepack/namecheck');
-const server = require('../server/server');
-const welcome = require('../welcomepack/welcomepack');
 
 // TODO: This is a temporary dispatcher
 
@@ -45,19 +43,6 @@ module.exports = class ModeratorDispatcher extends Dispatcher {
      * @param member
      */
     guildMemberAdd(member) {
-        if (welcome.check(member) && server.getChannel('general')) {
-            server.getChannel('general')
-                .send(`Welcome to DIG, ** ${member.displayName} **!`)
-                .then(() => this.logger.log('info', {
-                    message: 'Sent #general message',
-                    label: 'ModeratorDispatcher',
-                }))
-                .catch(err => this.logger.log('warn', {
-                    message: `Message failed to send ${err}`,
-                    label: 'ModeratorDispatcher',
-                }));
-        }
-
         nameCheck.execute(member);
         mentionSpam.joinCheck(member);
     }

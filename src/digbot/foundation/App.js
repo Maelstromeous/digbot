@@ -40,19 +40,13 @@ module.exports = class App extends EventEmitter {
      */
     async bootstrapWith(bootstrappers = []) {
         // TODO: Maybe trigger some events to tell when something is (being) bootstrapped. Should be waited for.
-        // this.emit('bootstrapping');
 
         for (const Bootstrapper of bootstrappers) {
-            // this.emit(`bootstapping:${bootstrapper.constructor.name}`);
-
             // eslint-disable-next-line no-await-in-loop
             await (new Bootstrapper()).bootstrap(this.cradle);
-
-            // this.emit(`bootstapped:${bootstrapper.constructor.name}`);
         }
 
         this.hasBeenBootstrapped = true;
-        // this.emit('bootstrapped');
     }
 
     /**
@@ -62,8 +56,6 @@ module.exports = class App extends EventEmitter {
         if (this.booted) {
             return;
         }
-
-        // TODO: Add some way to run through some array of callbacks. Should be waited for.
 
         for (const provider of this.serviceProviders) {
             // eslint-disable-next-line no-await-in-loop
@@ -85,8 +77,6 @@ module.exports = class App extends EventEmitter {
 
     /**
      * Register a serviceProvider and boot it if the app is already booted
-     *
-     * TODO: Don't allow duplicate providers
      *
      * @param name
      * @return {Promise<void>}

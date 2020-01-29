@@ -18,15 +18,12 @@ module.exports = class StatsCommand extends Command {
     async execute(request) {
         const reply = await request.respond('pong');
 
-        // TODO: Use RichEmbed
         return reply.edit(
             '__**DIGBot Stats**__\n'
             + `**Version:** ${version}\n`
             + `**Ping:** ${Math.round(this.client.ping)}ms\n`
-            + `**Runtime:** ${duration(process.uptime(), 'seconds')
-                .humanize()}\n`
-            + `**Stable Discord connection for:** ${duration(this.client.uptime)
-                .humanize()}\n`,
+            + `**Runtime:** ${duration(process.uptime(), 'seconds').humanize()}\n`
+            + `**Stable Discord connection for:** ${duration(this.client.uptime).humanize()}\n`,
         );
     }
 

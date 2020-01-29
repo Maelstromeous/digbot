@@ -3,8 +3,6 @@ const { asFunction } = require('awilix');
 const { Client } = require('discord.js');
 const ServiceProvider = require('../foundation/ServiceProvider');
 
-const subBots = require('../sub-bots/sub-bots');
-
 module.exports = class DiscordProvider extends ServiceProvider {
     /**
      * Register any app dependency
@@ -44,7 +42,5 @@ module.exports = class DiscordProvider extends ServiceProvider {
      */
     async boot({ discordClient }) {
         await discordClient.login(config.get('token'));
-
-        setImmediate(subBots.ready);
     }
 };

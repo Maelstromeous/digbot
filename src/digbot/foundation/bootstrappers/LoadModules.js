@@ -8,7 +8,7 @@ module.exports = class LoadModules {
      */
     bootstrap({ app }) {
         app.loadModules(
-            ['src/**/*.js'],
+            ['src/digbot/**/*.js'],
             {
                 formatName: this.format.bind(this),
             },
@@ -22,7 +22,6 @@ module.exports = class LoadModules {
      */
     format(name, { path }) {
         const splat = relative(join(process.cwd(), 'src'), path).split('/');
-
         splat.pop();
 
         return [...splat, name].join('.');

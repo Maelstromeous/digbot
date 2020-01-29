@@ -4,14 +4,16 @@ const LoadModules = require('./bootstrappers/LoadModules');
 const RegisterProviders = require('./bootstrappers/RegisterProviders');
 const BootProviders = require('./bootstrappers/BootProviders');
 
-const states = {
-    STATE_OFFLINE: 0,
-    STATE_STARTING: 1,
-    STATE_RUNNING: 2,
-    STATE_TERMINATING: 3,
-};
-
 module.exports = class Kernel extends EventEmitter {
+    static get states() {
+        return {
+            STATE_OFFLINE: 0,
+            STATE_STARTING: 1,
+            STATE_RUNNING: 2,
+            STATE_TERMINATING: 3,
+        };
+    }
+
     /**
      * @param app
      */
@@ -20,7 +22,7 @@ module.exports = class Kernel extends EventEmitter {
 
         this.app = app;
 
-        this.state = states.STATE_OFFLINE;
+        this.state = Kernel.Kernel.states.STATE_OFFLINE;
         this.dispatchers = [];
     }
 
@@ -28,7 +30,7 @@ module.exports = class Kernel extends EventEmitter {
      * Bootstraps and starts the bot
      */
     async run() {
-        this.state = states.STATE_STARTING;
+        this.state = Kernel.states.STATE_STARTING;
 
         try {
             await this.bootstrap();
@@ -40,7 +42,7 @@ module.exports = class Kernel extends EventEmitter {
             await this.terminate(1);
         }
 
-        this.state = states.STATE_RUNNING;
+        this.state = Kernel.states.STATE_RUNNING;
 
         return this;
     }
@@ -97,8 +99,8 @@ module.exports = class Kernel extends EventEmitter {
      * Safely terminates the bot
      */
     async terminate(code) {
-        if (this.state !== states.STATE_TERMINATING) {
-            this.state = states.STATE_TERMINATING;
+        if (this.state !== Kernel.states.STATE_TERMINATING) {
+            this.state = Kernel.states.STATE_TERMINATING;
 
             this.app.resolve('logger')
                 .log('info', {

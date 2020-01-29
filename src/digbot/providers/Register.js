@@ -1,5 +1,4 @@
 module.exports = [
-    'digbot.providers.LoggerProvider',
     'digbot.providers.DispatcherProvider',
     'digbot.providers.DatabaseProvider',
     'digbot.providers.RedisProvider',

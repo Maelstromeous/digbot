@@ -33,7 +33,7 @@ module.exports = class Throttle {
 
     makeThrottleKey({ command, message }, peruser) {
         return peruser
-            ? `${command.name}:${message.guild.id}:${message.author.id}`
-            : `${command.name}:${message.guild.id}`;
+            ? `commands:${command.name}:${message.guild.id}:${message.author.id}`
+            : `commands:${command.name}:${message.guild.id}`;
     }
 };

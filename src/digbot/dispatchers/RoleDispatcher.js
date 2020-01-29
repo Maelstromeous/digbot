@@ -59,7 +59,6 @@ module.exports = class RoleDispatcher extends Dispatcher {
 
     /**
      * TODO: Not the best way, but it will suffice for now
-     *  Probably a good idea to introduce a queue
      *
      * @param action
      * @param role
@@ -74,7 +73,7 @@ module.exports = class RoleDispatcher extends Dispatcher {
             }));
             break;
         default:
-            throw new Error(`Action type unkown: ${action.type}`);
+            throw new Error(`Action type unknown: ${action.type}`);
         }
     }
 };
