@@ -22,7 +22,7 @@ module.exports = class Kernel extends EventEmitter {
 
         this.app = app;
 
-        this.state = Kernel.Kernel.states.STATE_OFFLINE;
+        this.state = Kernel.states.STATE_OFFLINE;
         this.dispatchers = [];
     }
 
