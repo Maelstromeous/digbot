@@ -5,8 +5,6 @@ const ServiceProvider = require('../foundation/ServiceProvider');
 
 const autodelete = require('../admin/channels/autodelete.js');
 const mentionSpam = require('../admin/antispam/mentionspam.js');
-// const play = require('../commands/PlayCommand.js');
-// const sfx = require('../commands/SfxCommand.js');
 const server = require('../server/server.js');
 
 module.exports = class CheckProvider extends ServiceProvider {
@@ -16,18 +14,6 @@ module.exports = class CheckProvider extends ServiceProvider {
             asFunction(
                 () => new CronJob('0 */5 * * * *', () => {
                     mentionSpam.release();
-                }),
-            )
-                .singleton()
-                .disposer(job => job.stop()),
-        );
-
-        this.container.register(
-            'cronjobAssets',
-            asFunction(
-                () => new CronJob('0 0 0 * * 0', () => {
-                    sfx.ready();
-                    play.ready();
                 }),
             )
                 .singleton()
@@ -48,11 +34,7 @@ module.exports = class CheckProvider extends ServiceProvider {
     }
 
     async boot({ cronjobMentionSpam, cronjobChannels }) {
-        // play.ready();
-        // sfx.ready();
-
         cronjobMentionSpam.start();
         cronjobChannels.start();
-        // cronjobAssets.start();
     }
 };
