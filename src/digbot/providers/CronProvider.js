@@ -4,22 +4,10 @@ const { CronJob } = require('cron');
 const ServiceProvider = require('../foundation/ServiceProvider');
 
 const autodelete = require('../admin/channels/autodelete.js');
-const mentionSpam = require('../admin/antispam/mentionspam.js');
 const server = require('../server/server.js');
 
 module.exports = class CheckProvider extends ServiceProvider {
     register() {
-        this.container.register(
-            'cronjobMentionSpam',
-            asFunction(
-                () => new CronJob('0 */5 * * * *', () => {
-                    mentionSpam.release();
-                }),
-            )
-                .singleton()
-                .disposer(job => job.stop()),
-        );
-
         this.container.register(
             'cronjobChannels',
             asFunction(
@@ -33,8 +21,7 @@ module.exports = class CheckProvider extends ServiceProvider {
         );
     }
 
-    async boot({ cronjobMentionSpam, cronjobChannels }) {
-        cronjobMentionSpam.start();
+    async boot({ cronjobChannels }) {
         cronjobChannels.start();
     }
 };

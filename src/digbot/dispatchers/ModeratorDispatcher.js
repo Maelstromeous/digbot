@@ -1,7 +1,5 @@
 const Dispatcher = require('../foundation/Dispatcher');
 
-const forcedPTTCheck = require('../admin/roles/forcedpttcheck');
-const mentionSpam = require('../admin/antispam/mentionspam');
 const modularChannelSystem = require('../admin/channels/modularchannels');
 const nameCheck = require('../welcomepack/namecheck');
 
@@ -26,8 +24,6 @@ module.exports = class ModeratorDispatcher extends Dispatcher {
         this.registerListenersTo(this.client, {
             guildMemberAdd: this.guildMemberAdd.bind(this),
             guildMemberUpdate: this.guildMemberUpdate.bind(this),
-            message: this.message.bind(this),
-            messageUpdate: this.messsageUpdate.bind(this),
             voiceStateUpdate: this.voiceStateUpdate.bind(this),
         });
     }
@@ -44,7 +40,6 @@ module.exports = class ModeratorDispatcher extends Dispatcher {
      */
     guildMemberAdd(member) {
         nameCheck.execute(member);
-        mentionSpam.joinCheck(member);
     }
 
     /**
@@ -53,27 +48,6 @@ module.exports = class ModeratorDispatcher extends Dispatcher {
      */
     guildMemberUpdate(oldMember, newMember) {
         nameCheck.execute(newMember);
-        mentionSpam.memberUpdate(oldMember, newMember);
-        forcedPTTCheck.execute(oldMember, newMember);
-    }
-
-    /**
-     * @param message
-     */
-    message(message) {
-        if (message.channel.type === 'dm' || message.channel.type === 'group') { return; }
-
-        mentionSpam.execute(message);
-    }
-
-    /**
-     * @param oldMessage
-     * @param newMessage
-     */
-    messsageUpdate(oldMessage, newMessage) {
-        if (newMessage.channel.type === 'dm' || newMessage.channel.type === 'group') { return; }
-
-        mentionSpam.edits(oldMessage, newMessage);
     }
 
     /**
